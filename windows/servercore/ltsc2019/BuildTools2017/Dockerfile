@@ -9,9 +9,6 @@ RUN choco install \
     git  \
     nodejs \
     curl \
-    maven \
-    gradle \
-    ant \
     ruby \
     python \
     --confirm \
