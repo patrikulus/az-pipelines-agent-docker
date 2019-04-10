@@ -30,7 +30,7 @@ RUN choco install \
 
 RUN choco install \
     visualstudio2017buildtools \
-    --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US" \
+    --package-parameters "--includeRecommended --passive --locale en-US" \
     --confirm \
     --limit-output \
     --timeout 216000 \
