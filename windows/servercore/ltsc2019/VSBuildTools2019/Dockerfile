@@ -17,6 +17,6 @@ RUN choco install \
      --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
      --add Microsoft.VisualStudio.Workload.NodeBuildTools \
      --add Microsoft.VisualStudio.Workload.WebBuildTools \
-     --quiet --locale en-US" \
+     --includeRecommended --quiet --locale en-US" \
     --confirm \
     && rmdir /S /Q C:\chococache
