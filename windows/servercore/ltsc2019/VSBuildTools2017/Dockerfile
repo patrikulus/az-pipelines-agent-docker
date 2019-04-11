@@ -6,6 +6,6 @@ RUN choco config set cachelocation C:\chococache
 
 RUN choco install \
     visualstudio2017buildtools \
-    --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US" \
+    --package-parameters "--allWorkloads --includeRecommended --includeOptional --quiet --locale en-US" \
     --confirm \
     && rmdir /S /Q C:\chococache
