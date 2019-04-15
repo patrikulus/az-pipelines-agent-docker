@@ -12,10 +12,11 @@ RUN apt-get update \
         curl \
         git \
         jq \
-        libcurl3 \
+        libcurl4 \
         libicu60 \
         libunwind8 \
         netcat \
+        apt-transport-https \
  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash \
  && apt-get install -y --no-install-recommends git-lfs \
  && rm -rf /var/lib/apt/lists/* \
