@@ -1,5 +1,6 @@
 # Azure Pipelines agent docker images
-[![Build Status](https://dev.azure.com/plotzwi/az-pipelines-agent/_apis/build/status/Base images/Build%20Windows%20Agent?branchName=master)](https://dev.azure.com/plotzwi/az-pipelines-agent/_build/latest?definitionId=8&branchName=master)
+
+[![Build Status](https://dev.azure.com/plotzwi/az-pipelines-agent/_apis/build/status/Base%20images/Build%20Windows%20Agent?branchName=master)](https://dev.azure.com/plotzwi/az-pipelines-agent/_build/latest?definitionId=8&branchName=master)
 
 ![](https://github.com/microsoft/vsts-agent-docker/raw/master/images/vsts.png)
 
