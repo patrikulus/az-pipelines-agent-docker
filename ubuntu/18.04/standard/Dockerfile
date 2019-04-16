@@ -31,6 +31,7 @@ RUN locale-gen $LANG \
 
 # Accept EULA - needed for certain Microsoft packages like SQL Server Client Tools
 ENV ACCEPT_EULA=Y
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
 # Install essential build tools
 RUN apt-get update \
