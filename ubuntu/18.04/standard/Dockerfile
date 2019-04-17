@@ -20,7 +20,8 @@ RUN apt-get update \
     wget \
     zip \
     tzdata \
-    apt-transport-https \
+    gpg-agent \
+    dirmngr \
  && rm -rf /var/lib/apt/lists/*
 
 # Setup the locale
@@ -78,15 +79,13 @@ RUN curl https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-p
 RUN dotnet help
 ENV dotnet=/usr/bin/dotnet
 
-# Install AzCopy (depends on .NET Core)
-RUN apt-key adv --keyserver packages.microsoft.com --recv-keys EB3E94ADBE1229CF \
- && echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-bionic-prod/ bionic main" | tee /etc/apt/sources.list.d/azure.list \
- && apt-get update \
- && apt-get install -y --no-install-recommends azcopy \
- && rm -rf /var/lib/apt/lists/* \
- && rm -rf /etc/apt/sources.list.d/*
+# Install azcopy
+RUN wget -O azcopy.tar.gz https://aka.ms/downloadazcopylinux64 \
+ && tar -xf azcopy.tar.gz \
+ && sudo ./install.sh \
+ && rm azcopy.tar.gz
 
- # Install Powershell Core
+# Install Powershell Core
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
  && curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list | tee /etc/apt/sources.list.d/microsoft.list \
  && apt-get update \
@@ -96,16 +95,14 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
  && rm -rf /etc/apt/sources.list.d/*
 
 # Install LTS Node.js and related tools
-RUN curl -sL https://git.io/n-install | bash -s -- -ny - \
- && ~/n/bin/n lts \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - \
+ && apt-get install -y nodejs \
  && npm install -g bower \
  && npm install -g grunt \
  && npm install -g gulp \
- && npm install -g n \
  && npm install -g webpack webpack-cli --save-dev \
  && npm install -g parcel-bundler \
  && npm i -g npm \
- && rm -rf ~/n
 ENV bower=/usr/local/bin/bower \
     grunt=/usr/local/bin/grunt
 
