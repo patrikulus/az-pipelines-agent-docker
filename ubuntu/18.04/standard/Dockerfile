@@ -13,7 +13,6 @@ RUN apt-get update \
     openssh-client \
     rsync\
     shellcheck \
-    sudo \
     telnet \
     time \
     unzip \
@@ -55,7 +54,9 @@ RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
   && curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list | tee /etc/apt/sources.list.d/msprod.list \
   && apt-get update \
-  && apt-get install -y mssql-tools unixodbc-dev \
+  && apt-get install -y --no-install-recommends \
+     mssql-tools \
+     unixodbc-dev \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /etc/apt/sources.list.d/* \
   || echo -n
@@ -82,7 +83,7 @@ ENV dotnet=/usr/bin/dotnet
 # Install azcopy
 RUN wget -O azcopy.tar.gz https://aka.ms/downloadazcopylinux64 \
  && tar -xf azcopy.tar.gz \
- && sudo ./install.sh \
+ && ./install.sh \
  && rm azcopy.tar.gz
 
 # Install Powershell Core
@@ -95,8 +96,9 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
  && rm -rf /etc/apt/sources.list.d/*
 
 # Install LTS Node.js and related tools
-RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - \
- && apt-get install -y nodejs \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+ && apt-get install -y --no-install-recommends \
+    nodejs \
  && npm install -g bower \
  && npm install -g grunt \
  && npm install -g gulp \
@@ -117,10 +119,12 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  # Install Java OpenJDKs
 RUN apt-add-repository -y ppa:openjdk-r/ppa
 RUN apt-get update \
- && apt-get install -y --no-install-recommends openjdk-8-jdk \
+ && apt-get install -y --no-install-recommends \
+    openjdk-8-jdk \
  && rm -rf /var/lib/apt/lists/*
 RUN apt-get update \
- && apt-get install -y --no-install-recommends openjdk-11-jdk \
+ && apt-get install -y --no-install-recommends \
+    openjdk-11-jdk \
  && rm -rf /var/lib/apt/lists/*
 RUN update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 ENV JAVA_HOME_8_X64=/usr/lib/jvm/java-8-openjdk-amd64 \
@@ -148,12 +152,19 @@ ENV ANT_HOME=/usr/share/ant \
 
 # Install Xvfb
 RUN apt-get update \
- && apt-get install -y xvfb \
+ && apt-get install -y --no-install-recommends \
+    xvfb \
  && rm -rf /var/lib/apt/lists/*
 
 # Install PhantomJS
 RUN apt-get update \
- && apt-get install -y chrpath libssl-dev libxft-dev libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev \
+ && apt-get install -y --no-install-recommends \
+    chrpath \
+    libssl-dev \
+    libxft-dev libfreetype6 \
+    libfreetype6-dev \
+    libfontconfig1 \
+    libfontconfig1-dev \
  && rm -rf /var/lib/apt/lists/* \
  && export PHANTOM_JS=phantomjs-2.1.1-linux-x86_64 \
  && wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2 \
@@ -163,14 +174,16 @@ RUN apt-get update \
 
  # Install Firefox
 RUN apt-get update \
- && apt-get install -y firefox \
+ && apt-get install -y --no-install-recommends \
+    firefox \
  && rm -rf /var/lib/apt/lists/*
 
 # Install Google Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
  && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list \
  && apt-get update \
- && apt-get install -y google-chrome-stable \
+ && apt-get install -y --no-install-recommends \
+    google-chrome-stable \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /etc/apt/sources.list.d/*
 ENV CHROME_BIN /usr/bin/google-chrome
