@@ -22,6 +22,6 @@ RUN choco install \
      --add Microsoft.VisualStudio.Workload.WebBuildTools \
      --includeRecommended \
      --includeOptional \
-     --quiet --locale en-US" \
+     --quiet --nocache --locale en-US" \
     --confirm \
     && rmdir /S /Q C:\chococache
