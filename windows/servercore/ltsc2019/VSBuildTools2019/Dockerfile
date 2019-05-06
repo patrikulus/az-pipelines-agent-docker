@@ -9,7 +9,9 @@ RUN choco config set cachelocation C:\chococache
 RUN choco install \
     git  \
     nodejs \
+    yarn \
     curl \
+    azure-cli \
     visualstudio2019buildtools \
     --package-parameters \ 
     "--add Microsoft.VisualStudio.Workload.AzureBuildTools \
@@ -18,6 +20,8 @@ RUN choco install \
      --add Microsoft.VisualStudio.Workload.NetCoreBuildTools \
      --add Microsoft.VisualStudio.Workload.NodeBuildTools \
      --add Microsoft.VisualStudio.Workload.WebBuildTools \
-     --includeRecommended --quiet --locale en-US" \
+     --includeRecommended \
+     --includeOptional \
+     --quiet --locale en-US" \
     --confirm \
     && rmdir /S /Q C:\chococache
