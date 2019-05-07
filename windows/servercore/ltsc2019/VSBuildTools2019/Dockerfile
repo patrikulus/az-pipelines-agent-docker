@@ -11,7 +11,10 @@ RUN choco install \
     nodejs \
     yarn \
     curl \
-    azure-cli \
+    --confirm \
+    && rmdir /S /Q C:\chococache
+
+RUN choco install \
     visualstudio2019buildtools \
     --package-parameters \ 
     "--add Microsoft.VisualStudio.Workload.AzureBuildTools \
@@ -23,5 +26,11 @@ RUN choco install \
      --includeRecommended \
      --includeOptional \
      --quiet --nocache --locale en-US" \
+    --confirm \
+    && rmdir /S /Q C:\chococache
+
+RUN choco install \
+    azure-cli \
+    azurepowershell \
     --confirm \
     && rmdir /S /Q C:\chococache
