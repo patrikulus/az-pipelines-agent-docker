@@ -32,5 +32,7 @@ RUN choco install \
 RUN choco install \
     azure-cli \
     azurepowershell \
+    azcopy \
+    gcloudsdk \
     --confirm \
     && rmdir /S /Q C:\chococache
